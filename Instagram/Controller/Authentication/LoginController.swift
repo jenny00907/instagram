@@ -7,11 +7,17 @@
 
 import UIKit
 
+protocol AuthenticationDelegate: class { //retain cycle
+    func authenticationDidComplete()
+}
+
+
 class LoginController: UIViewController {
     
     private var viewModel = LoginViewModel()
+    weak var delegate: AuthenticationDelegate?
     
-    private let iconImage:UIImageView = {
+    private let iconImage : UIImageView = {
         let iv = UIImageView(image: #imageLiteral(resourceName: "Instagram_logo_white"))
         iv.contentMode = .scaleAspectFill
         return iv
@@ -37,6 +43,8 @@ class LoginController: UIViewController {
         button.layer.cornerRadius = 5
         button.setHeight(50)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        button.isEnabled = false
+        button.addTarget(self, action: #selector(handlelogin), for: .touchUpInside)
         return button
     }()
     
@@ -59,6 +67,7 @@ class LoginController: UIViewController {
     @objc func handleShowSignUp() {
         let controller = RegisterController()
         navigationController?.pushViewController(controller, animated: true)
+        controller.delegate = delegate
     }
     @objc func textDidChange(sender: UITextField) {
         if sender == emailTextField {
@@ -66,11 +75,22 @@ class LoginController: UIViewController {
         } else {
             viewModel.password = sender.text
         }
-        loginButton.backgroundColor = viewModel.buttonBackgroundColor
-        loginButton.setTitleColor(viewModel.buttonTitleColor, for: .normal)
-        loginButton.isEnabled = viewModel.formIsValid
+        updateForm()
     }
     
+    @objc func handlelogin() {
+        guard let email = emailTextField.text else {return}
+        guard let password = PasswordTextField.text else {return}
+        
+        AuthService.logUserIn(withEmail: email, password: password) { (result, error) in
+            if let error = error {
+                print("DEBUG: Failed to log user in \(error.localizedDescription)")
+                return
+        }
+            self.delegate?.authenticationDidComplete()
+        }
+    }
+    //MARK: - LifeCycles
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
@@ -107,3 +127,12 @@ class LoginController: UIViewController {
         PasswordTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
     }
 }
+//MARK: - FormViewModel
+extension LoginController: FormViewModel {
+    func updateForm() {
+        loginButton.backgroundColor = viewModel.buttonBackgroundColor
+        loginButton.setTitleColor(viewModel.buttonTitleColor, for: .normal)
+        loginButton.isEnabled = viewModel.formIsValid
+    }
+}
+

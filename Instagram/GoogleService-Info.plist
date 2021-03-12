@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>628003339784-7k9h14t5jlqdgji8qog2m9hl9ht1g8dv.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.628003339784-7k9h14t5jlqdgji8qog2m9hl9ht1g8dv</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAgamMoivhZQooClkmv4hZTbsPWz1iY26w</string>
+	<key>GCM_SENDER_ID</key>
+	<string>628003339784</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>Jenny-Woorim-Lee.Instagram</string>
+	<key>PROJECT_ID</key>
+	<string>instagram-6c14d</string>
+	<key>STORAGE_BUCKET</key>
+	<string>instagram-6c14d.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:628003339784:ios:e9ea18c2fce75ecbf5dbbd</string>
+</dict>
+</plist>
